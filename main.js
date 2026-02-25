@@ -16,8 +16,6 @@ const controls = new PointerLockControls(camera, document.body);
 document.addEventListener("click", () => {
  controls.lock();
 });
-scene.add(controls.getObject());
- 
 // ===== レンダラー =====
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
