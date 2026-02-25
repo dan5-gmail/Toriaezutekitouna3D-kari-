@@ -11,7 +11,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-const controls = new PointerLookControls(camera, document.body);
+const controls = new PointerLockControls(camera, document.body);
 
 document.addEventListener("click", () => {
  controls.lock();
