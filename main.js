@@ -1,6 +1,5 @@
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-import { PointerLockControls } from `https://unpkg.com/three@0.160.0/examples/jsm/controls/PointerLookControls.js`;
-
+import { PointerLockControls } from  `https://unpkg.com/three@0.160.0/examples/jsm/controls/PointerLookControls.js`;
 // ===== シーン =====
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x87CEEB);
