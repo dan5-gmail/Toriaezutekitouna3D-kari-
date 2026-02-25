@@ -14,7 +14,9 @@ const camera = new THREE.PerspectiveCamera(
 );
 const controls = new PointerLookControls(camera, document.body);
 
-document.addEventListener("click", () => {});
+document.addEventListener("click", () => {
+ controls.lock();
+});
 scene.add(controls.getObject());
  
 // ===== レンダラー =====
