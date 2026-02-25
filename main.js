@@ -70,10 +70,10 @@ function updatePlayer() {
  const right = new THREE.Vector3();
  right.crossVectors(direction, camera.up);
 
- if (keys["w"]) controls.getObject().position.addScaledVector(direction, speed);
- if (keys["a"]) controls.getObject().position.addScaledVector(right, -speed);
- if (keys["s"]) controls.getObject().position.addScaledVector(direction, -speed);
- if (keys["d"]) controls.getObject().position.addScaledVector(right, speed);
+ if (keys["w"]) camera.position.addScaledVector(direction, speed);
+ if (keys["a"]) camera.position.addScaledVector(right, -speed);
+ if (keys["s"]) camera.position.addScaledVector(direction, -speed);
+ if (keys["d"]) camera.position.addScaledVector(right, speed);
  }
  
 // ===== ループ =====
