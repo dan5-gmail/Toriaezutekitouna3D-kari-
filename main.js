@@ -1,5 +1,6 @@
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
- 
+import { PointerLookControls } from `https://unpkg.com/three@0.160.0/examples/jsm/controls/PointerLookControls.js`;
+
 // ===== シーン =====
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x87CEEB);
@@ -11,6 +12,10 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
+const controls = new PointerLookControls(camera, document.body);
+
+document.addEventListener("click", () => {});
+scene.add(controls.getObject());
  
 // ===== レンダラー =====
 const renderer = new THREE.WebGLRenderer();
@@ -45,16 +50,7 @@ for (let x = 0; x < worldSize; x++) {
   }
 }
  
-// ===== プレイヤー =====
-const playerGeo = new THREE.BoxGeometry(0.8, 2, 0.8);
-const playerMat = new THREE.MeshLambertMaterial({ color: 0xff0000 });
-const player = new THREE.Mesh(playerGeo, playerMat);
-player.position.set(5, 1, 5);
-scene.add(player);
- 
-// ===== カメラ位置 =====
-camera.position.set(5, 6, 12);
-camera.lookAt(player.position);
+// ===== プレイヤー 　　一旦FPS完成後検討=====　
  
 // ===== 入力 =====
 const keys = {};
@@ -63,17 +59,23 @@ document.addEventListener("keyup", e => keys[e.key] = false);
  
 // ===== 更新 =====
 function updatePlayer() {
-  const speed = 0.15;
- 
-  if (keys["w"]) player.position.z -= speed;
-  if (keys["s"]) player.position.z += speed;
-  if (keys["a"]) player.position.x -= speed;
-  if (keys["d"]) player.position.x += speed;
- 
-  camera.position.x = player.position.x;
-  camera.position.z = player.position.z + 10;
-  camera.lookAt(player.position);
-}
+
+ let speed = 0.15;
+ if (keys["Shift"]) speed = 0.3;
+
+ const direction = new THREE.Vector3();
+ camera.getWorldDirection(direction);
+ direction.y = 0;
+ direction.normalize();
+
+ const right = new THREE.Vector3();
+ right.crossVectors(direction, camera.up);
+
+ if (keys["w"]) controls.getObject().position.addScaledVector(direction, speed);
+ if (keys["a"]) controls.getObject().position.addScaledVector(right, -speed);
+ if (keys["s"]) controls.getObject().position.addScaledVector(direction, -speed);
+ if (keys["d"]) controls.getObject().position.addScaledVector(right, speed);
+ }
  
 // ===== ループ =====
 function animate() {
